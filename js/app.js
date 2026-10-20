@@ -10,37 +10,42 @@ function appendToDisplay(input){
 
 //Function to remove numbers from display
 function clearScreen(){
-    show.value = ""
+    show.value = " "
 }
 
-//Function to perform arithmetic calculations
+//Function to perform arithmetic calculations & add to array History
 function calculate(){
     try{
-        let result = eval(show.value) //js function to perform arithmetic operations
-        calcHistory.push(`${show.value} = ${result}`) //Push to Array
-        show.value = result         
-
-        //Display history
-        displayHistory.innerHTML = ""
-        for(const element of calcHistory){
-            displayHistory.innerHTML += `
-                 <p> >> ${element} </p>
-            `
-        }
+        (function addHistry(){
+            let result = eval(show.value) //js function to perform arithmetic operations
+            calcHistory.push(`${show.value} = ${result}`) //Push to Array
+            show.value = result     
+        })()
+                
+        displayHist()  
     }
     catch(error){
         show.value = "Error !"
     }   
 }
 
-// function displayHistory(){
-    
-
-//     calcHistory.forEach(item => {
-//     //append p to section and display item
-   
-// })  
-// }
+function displayHist(){
+    if(calcHistory.length === 0)
+    {
+        displayHistory.innerHTML = `
+                 <p class="danger"> You have no stored calculations </p>
+            `
+    }
+    else {
+         displayHistory.innerHTML = " "
+        for(const element of calcHistory){
+            displayHistory.innerHTML += `
+                 <p> >> ${element} </p>
+            `
+        }
+    }  
+}
+displayHist()
 
 
 
